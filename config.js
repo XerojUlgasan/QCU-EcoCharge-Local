@@ -2,7 +2,7 @@ exports.CONFIG = {
     PORT: 3000
 }
 
-exports.TABLES = [
+exports.FIREBASE_TABLES = [
   "superAdmin",
   "alerts",
   "alertHistory",

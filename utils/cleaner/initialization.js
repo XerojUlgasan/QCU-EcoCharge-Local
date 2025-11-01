@@ -9,8 +9,8 @@ const { getReport } = require("../user/getReport");
 const { getEnergyHistory } = require("../device/getEnergyHistory");
 const { getContact } = require("../user/getContact");
 const createListener = require("./createListener");
-const { TABLES } = require("../../config");
 const implementSql = require("./implementLocalSql/implementSql");
+const { FIREBASE_TABLES } = require("../../config");
 
 const initializeGetter = async () => {
     getAdmin();
@@ -29,7 +29,7 @@ const initializeGetter = async () => {
 
 const initializeListener = async () => {
 
-    TABLES.forEach(table => {
+    FIREBASE_TABLES.forEach(table => {
         createListener(table, implementSql)
     })
 }
