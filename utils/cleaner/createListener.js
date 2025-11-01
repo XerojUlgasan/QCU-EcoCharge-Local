@@ -13,7 +13,7 @@ const createListener = async (collectionName, callback) => {
                 type: change.type,
                 data: data
             }
-
+            console.log(load)
             if(callback){
                 await callback(load)
             }

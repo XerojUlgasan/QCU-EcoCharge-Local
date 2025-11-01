@@ -7,6 +7,5 @@ app.listen(CONFIG.PORT, () => {
     console.log("Listening to PORT " + CONFIG.PORT)
     console.log("http://localhost:" + CONFIG.PORT)
 
-    initializeGetter();
     initializeListener();
 })
