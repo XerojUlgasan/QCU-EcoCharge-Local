@@ -1,4 +1,3 @@
-
 const {db} = require("../firebase/connectToFirebase")
 
 const getAdmin = async () => {
