@@ -1,5 +1,17 @@
 const mysql = require("mysql2")
 
 const conn = mysql.createConnection({
-    
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASS,
+    database: process.env.MYSQL_DABA
 })
+
+conn.connect((err) => {
+    if(err) {
+        console.log(err.message)
+    }
+    console.log("connected")
+})
+
+module.exports = conn

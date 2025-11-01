@@ -1,4 +1,5 @@
 const {db} = require("../firebase/connectToFirebase")
+const conn = require("../mysql/connectToMysql")
 
 const getAdmin = async () => {
     const snapshot = await db.collection("superAdmin").get()
@@ -6,6 +7,7 @@ const getAdmin = async () => {
     snapshot.forEach(doc => {
         const data = doc.data()
         
+        conn.query()
     })
 
     return
