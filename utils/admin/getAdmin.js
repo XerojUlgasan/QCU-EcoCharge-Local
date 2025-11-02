@@ -2,8 +2,9 @@ const { MYSQL_TABLES, FIREBASE_TABLES } = require("../../config")
 const {db} = require("../firebase/connectToFirebase")
 const conn = require("../mysql/connectToMysql")
 
+const cname = "superAdmin"
+
 const getAdmin = async () => {
-    const cname = "superAdmin"
     const snapshot = await db.collection(cname).get()
 
     snapshot.forEach(doc => {
@@ -17,17 +18,23 @@ const getAdmin = async () => {
                                                     ${data.backup_email ? `"${data.backup_email}"` : 'NULL'},
                                                     ${data.full_name ? `"${data.full_name}"` : 'NULL'})`
 
-        console.log(query)
         conn.query(query, (err, res, fields) => {
             if(err){
+                console.log(cname)
+                console.log(sqlTable)
                 console.log(err.message)
+                console.log()
                 return
             }
-            console.log("good")
+            console.log(cname + " : good")
         })
     })
 
     return
+}
+
+const listenToAdmin = () => {
+    db.collection(collection()).onSnapshot
 }
 
 module.exports = {getAdmin}

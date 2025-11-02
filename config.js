@@ -4,15 +4,17 @@ exports.CONFIG = {
 
 exports.FIREBASE_TABLES = [
   "superAdmin",
-  "alerts",
   "alertHistory",
+  "alerts",
+  "contactUs",
   "devices",
   "deviceConfig",
+  "devicesData",
   "energyHistory",
-  "transactions",
-  "contactUs",
   "ratings",
-  "reports"
+  "reports",
+  "transactions",
+  "users"
 ]
 
 exports.MYSQL_TABLES = [
@@ -22,9 +24,10 @@ exports.MYSQL_TABLES = [
   "tbl_contacts",
   "tbl_devices",
   "tbl_devicesconfig",
+  "tbl_devicesData",
   "tbl_energyhistory",
   "tbl_ratings",
   "tbl_reports",
-  "tbl_transactions",
+  "tbl_sessions",
   "tbl_users"
 ]
