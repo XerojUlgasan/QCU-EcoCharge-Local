@@ -34,7 +34,68 @@ const getAdmin = async () => {
 }
 
 const listenToAdmin = () => {
-    db.collection(collection()).onSnapshot
+    db.collection(cname).onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+            const data = change.doc.data()
+            const id = change.doc.id
+            const type = change.type
+
+            const sqlTable = MYSQL_TABLES[FIREBASE_TABLES.indexOf(cname)].toString()
+
+            if(type === "added"){
+                const query = `INSERT INTO ${sqlTable} VALUES ("${id}", 
+                                                    "${data.username}",
+                                                    "${data.email}",
+                                                    "${data.password}",
+                                                    ${data.backup_email ? `"${data.backup_email}"` : 'NULL'},
+                                                    ${data.full_name ? `"${data.full_name}"` : 'NULL'})`
+
+                conn.query(query, (err, res, fields) => {
+                    if(err){
+                        console.log(cname)
+                        console.log(sqlTable)
+                        console.log(err.message)
+                        console.log()
+                        return
+                    }
+                    console.log(cname + " : " + type)
+                })                                                    
+            }
+
+            if(type === "modified"){
+                console.log("Modified document ID:", id)
+                console.log("New data:", data)
+                
+                const query = `UPDATE ${sqlTable} SET 
+                                username = "${data.username}",
+                                email = "${data.email}",
+                                password = "${data.password}",
+                                backup_email = ${data.backup_email ? `"${data.backup_email}"` : 'NULL'},
+                                full_name = ${data.full_name ? `"${data.full_name}"` : 'NULL'}
+                                WHERE admin_id = "${id}"`
+
+                conn.query(query, (err, res) => {
+                    if(err){
+                        console.log(err.message)
+                        return
+                    }
+                    console.log(cname + " : " + type)
+                })
+            }
+
+            if(type === "removed"){
+                const query = `DELETE FROM ${sqlTable} WHERE admin_id = "${id}"`
+                
+                conn.query(query, (err, res) => {
+                    if(err){
+                        console.log(err.message)
+                        return
+                    }
+                    console.log(cname + " : " + type)
+                })
+            }
+        })
+    })
 }
 
-module.exports = {getAdmin}
+module.exports = {getAdmin, listenToAdmin}
